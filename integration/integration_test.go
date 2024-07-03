@@ -107,7 +107,7 @@ func (s *BaseSuite) displayTraefikLogFile(path string) {
 func (s *BaseSuite) SetupSuite() {
 	if isDockerDesktop(context.Background(), s.T()) {
 		_, err := os.Stat(tailscaleSecretFilePath)
-		require.NoError(s.T(), err, "Tailscale need to be configured when running integration tests with Docker Desktop: (https://doc.traefik.io/traefik/v2.11/contributing/building-testing/#testing)")
+		require.NoError(s.T(), err, "Tailscale need to be configured when running integration tests with Docker Desktop: (https://doc.traefik-x.io/traefik/v2.11/contributing/building-testing/#testing)")
 	}
 
 	// configure default standard log.

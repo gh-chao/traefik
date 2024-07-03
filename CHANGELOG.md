@@ -692,7 +692,7 @@
 **Enhancements:**
 - **[docker]** Expose ContainerName in Docker provider ([#9770](https://github.com/traefik/traefik/pull/9770) by [quinot](https://github.com/quinot))
 - **[hub]** Remove hub configuration out of experimental ([#9792](https://github.com/traefik/traefik/pull/9792) by [mpl](https://github.com/mpl))
-- **[k8s/crd]** Introduce traefik.io API Group CRDs ([#9765](https://github.com/traefik/traefik/pull/9765) by [rtribotte](https://github.com/rtribotte))
+- **[k8s/crd]** Introduce traefik-x.io API Group CRDs ([#9765](https://github.com/traefik/traefik/pull/9765) by [rtribotte](https://github.com/rtribotte))
 - **[k8s/ingress,k8s/crd,k8s]** Native Kubernetes service load-balancing ([#9740](https://github.com/traefik/traefik/pull/9740) by [rtribotte](https://github.com/rtribotte))
 - **[middleware,metrics]** Add prometheus metric requests_total with headers ([#9783](https://github.com/traefik/traefik/pull/9783) by [rtribotte](https://github.com/rtribotte))
 - **[nomad]** Support multiple namespaces in the Nomad Provider ([#9794](https://github.com/traefik/traefik/pull/9794) by [rtribotte](https://github.com/rtribotte))
@@ -749,7 +749,7 @@
 **Enhancements:**
 - **[docker]** Expose ContainerName in Docker provider ([#9770](https://github.com/traefik/traefik/pull/9770) by [quinot](https://github.com/quinot))
 - **[hub]** hub: get out of experimental. ([#9792](https://github.com/traefik/traefik/pull/9792) by [mpl](https://github.com/mpl))
-- **[k8s/crd]** Introduce traefik.io API Group CRDs ([#9765](https://github.com/traefik/traefik/pull/9765) by [rtribotte](https://github.com/rtribotte))
+- **[k8s/crd]** Introduce traefik-x.io API Group CRDs ([#9765](https://github.com/traefik/traefik/pull/9765) by [rtribotte](https://github.com/rtribotte))
 - **[k8s/ingress,k8s/crd,k8s]** Native Kubernetes service load-balancing ([#9740](https://github.com/traefik/traefik/pull/9740) by [rtribotte](https://github.com/rtribotte))
 - **[middleware,metrics]** Add prometheus metric requests_total with headers ([#9783](https://github.com/traefik/traefik/pull/9783) by [rtribotte](https://github.com/rtribotte))
 - **[nomad]** Support multiple namespaces in the Nomad Provider ([#9794](https://github.com/traefik/traefik/pull/9794) by [rtribotte](https://github.com/rtribotte))

@@ -55,6 +55,24 @@ http:
         fallback: foobar
         healthCheck: {}
     Service02:
+      highestRandomWeight:
+        services:
+          - name: foobar
+            weight: 42
+          - name: foobar
+            weight: 42
+        sticky:
+          cookie:
+            name: foobar
+            secure: true
+            httpOnly: true
+            sameSite: foobar
+            maxAge: 42
+          header:
+            name: foobar
+            maxAge: 42
+        healthCheck: {}
+    Service03:
       loadBalancer:
         sticky:
           cookie:
@@ -62,6 +80,9 @@ http:
             secure: true
             httpOnly: true
             sameSite: foobar
+            maxAge: 42
+          header:
+            name: foobar
             maxAge: 42
         servers:
           - url: foobar
@@ -86,7 +107,7 @@ http:
         responseForwarding:
           flushInterval: 42s
         serversTransport: foobar
-    Service03:
+    Service04:
       mirroring:
         service: foobar
         maxBodySize: 42
@@ -96,7 +117,7 @@ http:
           - name: foobar
             percent: 42
         healthCheck: {}
-    Service04:
+    Service05:
       weighted:
         services:
           - name: foobar
@@ -109,6 +130,9 @@ http:
             secure: true
             httpOnly: true
             sameSite: foobar
+            maxAge: 42
+          header:
+            name: foobar
             maxAge: 42
         healthCheck: {}
   middlewares:

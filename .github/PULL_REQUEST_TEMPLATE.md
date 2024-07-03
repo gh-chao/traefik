@@ -13,7 +13,7 @@ Enhancements:
 - for Traefik v2: we only accept bug fixes
 - for Traefik v3: use branch master
 
-HOW TO WRITE A GOOD PULL REQUEST? https://doc.traefik.io/traefik/contributing/submitting-pull-requests/
+HOW TO WRITE A GOOD PULL REQUEST? https://doc.traefik-x.io/traefik/contributing/submitting-pull-requests/
 
 -->
 

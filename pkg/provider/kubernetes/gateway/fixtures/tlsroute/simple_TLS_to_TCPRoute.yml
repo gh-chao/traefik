@@ -16,7 +16,7 @@ metadata:
   name: my-gateway-class
   namespace: default
 spec:
-  controllerName: traefik.io/gateway-controller
+  controllerName: traefik-x.io/gateway-controller
 
 ---
 kind: Gateway

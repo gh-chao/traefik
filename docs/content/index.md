@@ -24,6 +24,6 @@ Developing Traefik, our main goal is to make it effortless to use, and we're sur
 
 !!! info
 
-    Join our user friendly and active [Community Forum](https://community.traefik.io "Link to Traefik Community Forum") to discuss, learn, and connect with the Traefik community.
+    Join our user friendly and active [Community Forum](https://community.traefik-x.io "Link to Traefik Community Forum") to discuss, learn, and connect with the Traefik community.
 
-    Using Traefik OSS in Production? Add enterprise-grade API Gateway and API Management capabilities to your existing deployments seamlessly. No rip and replace. No learning curve. Learn more from [this short video](https://info.traefik.io/traefik-upgrade-walkthrough)
+    Using Traefik OSS in Production? Add enterprise-grade API Gateway and API Management capabilities to your existing deployments seamlessly. No rip and replace. No learning curve. Learn more from [this short video](https://info.traefik-x.io/traefik-upgrade-walkthrough)

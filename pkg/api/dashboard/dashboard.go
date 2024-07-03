@@ -33,7 +33,7 @@ func Append(router *mux.Router, customAssets fs.FS) {
 		HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// allow iframes from our domains only
 			// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-src
-			w.Header().Set("Content-Security-Policy", "frame-src 'self' https://traefik.io https://*.traefik.io;")
+			w.Header().Set("Content-Security-Policy", "frame-src 'self' https://traefik-x.io https://*.traefik-x.io;")
 
 			// The content type must be guessed by the file server.
 			// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
@@ -50,7 +50,7 @@ func (g Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	// allow iframes from our domains only
 	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-src
-	w.Header().Set("Content-Security-Policy", "frame-src 'self' https://traefik.io https://*.traefik.io;")
+	w.Header().Set("Content-Security-Policy", "frame-src 'self' https://traefik-x.io https://*.traefik-x.io;")
 
 	// The content type must be guessed by the file server.
 	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options

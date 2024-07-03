@@ -35,7 +35,7 @@ import (
 const (
 	annotationKubernetesIngressClass     = "kubernetes.io/ingress.class"
 	traefikDefaultIngressClass           = "traefik"
-	traefikDefaultIngressClassController = "traefik.io/ingress-controller"
+	traefikDefaultIngressClassController = "traefik-x.io/ingress-controller"
 	defaultPathMatcher                   = "PathPrefix"
 )
 

@@ -41,5 +41,5 @@ docker run --rm \
            output:dir=./docs/content/reference/dynamic-configuration/
 
 echo "Concatenate the CRD definitions for publication and integration tests ..."
-cat "${CURRENT_DIR}"/docs/content/reference/dynamic-configuration/traefik.io_*.yaml > "${CURRENT_DIR}"/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+cat "${CURRENT_DIR}"/docs/content/reference/dynamic-configuration/traefik-x.io_*.yaml > "${CURRENT_DIR}"/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
 cp -f "${CURRENT_DIR}"/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml "${CURRENT_DIR}"/integration/fixtures/k8s/01-traefik-crd.yml

@@ -658,7 +658,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: test.route
@@ -708,7 +708,7 @@ This option can now be configured directly on the `TCPServersTransport` level, p
 ### Kubernetes CRDs API Group `traefik.containo.us`
 
 In v3, the Kubernetes CRDs API Group `traefik.containo.us` has been removed. 
-Please use the API Group `traefik.io` instead.
+Please use the API Group `traefik-x.io` instead.
 
 ### Kubernetes Ingress API Group `networking.k8s.io/v1beta1`
 

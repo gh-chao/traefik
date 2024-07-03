@@ -237,7 +237,7 @@ func (s *K8sConformanceSuite) TestK8sGatewayAPIConformance() {
 		Implementation: conformanceV1alpha1.Implementation{
 			Organization: "traefik",
 			Project:      "traefik",
-			URL:          "https://traefik.io/",
+			URL:          "https://traefik-x.io/",
 			Version:      version.Version,
 			Contact:      []string{"@traefik/maintainers"},
 		},

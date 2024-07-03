@@ -35,4 +35,4 @@ And these are our guiding rules for version support:
 
 - **Only the latest `minor`** will be on active support at any given time
 - **The last `minor` after releasing a new `major`** will be supported for 1 year following the `major` release
-- **Previous rules are subject to change** and in such cases an announcement will be made publicly, [here](https://traefik.io/blog/traefik-2-1-in-the-wild/) is an example extending v1.x branch support.
+- **Previous rules are subject to change** and in such cases an announcement will be made publicly, [here](https://traefik-x.io/blog/traefik-2-1-in-the-wild/) is an example extending v1.x branch support.

@@ -68,7 +68,7 @@ creating `GatewayClass` objects.
     spec:
       # Controller is a domain/path string that indicates
       # the controller that is managing Gateways of this class.
-      controllerName: traefik.io/gateway-controller
+      controllerName: traefik-x.io/gateway-controller
     ```
 
 ### Kind: `Gateway`
@@ -239,12 +239,12 @@ Kubernetes cluster before creating `HTTPRoute` objects.
               weight: 1                         # [16]
               port: 8080                        # [17]
             - name: api@internal
-              group: traefik.io                 # [18]
+              group: traefik-x.io                 # [18]
               kind: TraefikService              # [19]
         - filters:                              # [20]
           - type: ExtensionRef                  # [21]
             extensionRef:                       # [22]
-              group: traefik.io                 # [23]
+              group: traefik-x.io                 # [23]
               kind: Middleware                  # [24]
               name: my-middleware               # [25]
           - type: RequestRedirect               # [26]
@@ -282,7 +282,7 @@ Kubernetes cluster before creating `HTTPRoute` objects.
 | [15] | `name`                  | The name of the referent service.                                                                                                                                           |
 | [16] | `weight`                | The proportion of traffic forwarded to a targetRef, computed as weight/(sum of all weights in targetRefs).                                                                  |
 | [17] | `port`                  | The port of the referent service.                                                                                                                                           |
-| [18] | `group`                 | Group is the group of the referent. Only `traefik.io` and `gateway.networking.k8s.io` values are supported.                                                                 |
+| [18] | `group`                 | Group is the group of the referent. Only `traefik-x.io` and `gateway.networking.k8s.io` values are supported.                                                                 |
 | [19] | `kind`                  | Kind is kind of the referent. Only `TraefikService` and `Service` values are supported.                                                                                     |
 | [20] | `filters`               | Defines the filters (middlewares) applied to the route.                                                                                                                     |
 | [21] | `type`                  | Defines the type of filter; ExtensionRef is used for configuring custom HTTP filters.                                                                                       |
@@ -323,7 +323,7 @@ Kubernetes cluster before creating `TCPRoute` objects.
               weight: 1                         # [8]
               port: 8080                        # [9]
             - name: api@internal
-              group: traefik.io                 # [10]
+              group: traefik-x.io                 # [10]
               kind: TraefikService              # [11]
     ```
 
@@ -338,7 +338,7 @@ Kubernetes cluster before creating `TCPRoute` objects.
 | [7]  | `name`        | The name of the referent service.                                                                               |
 | [8]  | `weight`      | The proportion of traffic forwarded to a targetRef, computed as weight/(sum of all weights in targetRefs).      |
 | [9]  | `port`        | The port of the referent service.                                                                               |
-| [10] | `group`       | Group is the group of the referent. Only `traefik.io` and `gateway.networking.k8s.io` values are supported.     |
+| [10] | `group`       | Group is the group of the referent. Only `traefik-x.io` and `gateway.networking.k8s.io` values are supported.     |
 | [11] | `kind`        | Kind is kind of the referent. Only `TraefikService` and `Service` values are supported.                         |
 
 ### Kind: `TLSRoute`
@@ -369,7 +369,7 @@ Kubernetes cluster before creating `TLSRoute` objects.
               weight: 1                         # [9]
               port: 8080                        # [10]
             - name: api@internal
-              group: traefik.io                 # [11]
+              group: traefik-x.io                 # [11]
               kind: TraefikService              # [12]
     ```
 
@@ -385,7 +385,7 @@ Kubernetes cluster before creating `TLSRoute` objects.
 | [8]  | `name`        | The name of the referent service.                                                                                   |
 | [9]  | `weight`      | The proportion of traffic forwarded to a targetRef, computed as weight/(sum of all weights in targetRefs).          |
 | [10] | `port`        | The port of the referent service.                                                                                   |
-| [11] | `group`       | Group is the group of the referent. Only `traefik.io` and `gateway.networking.k8s.io` values are supported.         |
+| [11] | `group`       | Group is the group of the referent. Only `traefik-x.io` and `gateway.networking.k8s.io` values are supported.         |
 | [12] | `kind`        | Kind is kind of the referent. Only `TraefikService` and `Service` values are supported.                             |
 
 {!traefik-for-business-applications.md!}

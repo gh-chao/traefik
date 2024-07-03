@@ -43,7 +43,7 @@ Once your Traefik test instances are starting and routing to your applications, 
 We strongly advise you to follow a progressive migration strategy ([Kubernetes rolling update mechanism](https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/ "Link to the Kubernetes rolling update documentation"), for example) to migrate your production instances to v3.
 
 !!! Warning
-    Ensure you have a [real-time monitoring solution](https://traefik.io/blog/capture-traefik-metrics-for-apps-on-kubernetes-with-prometheus/ "Link to the blog on capturing Traefik metrics with Prometheus") for your ingress traffic to detect issues instantly.
+    Ensure you have a [real-time monitoring solution](https://traefik-x.io/blog/capture-traefik-metrics-for-apps-on-kubernetes-with-prometheus/ "Link to the blog on capturing Traefik metrics with Prometheus") for your ingress traffic to detect issues instantly.
 
 During the progressive migration, monitor your ingress traffic for any errors. Be prepared to rollback to a working state in case of any issues.
 

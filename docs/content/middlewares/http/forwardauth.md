@@ -24,7 +24,7 @@ labels:
 
 ```yaml tab="Kubernetes"
 # Forward authentication to example.com
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -78,7 +78,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -115,7 +115,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -156,7 +156,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -203,7 +203,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -251,7 +251,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -300,7 +300,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -353,7 +353,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -411,7 +411,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -476,7 +476,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth
@@ -539,7 +539,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-auth

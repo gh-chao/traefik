@@ -8,10 +8,10 @@
 </p>
 
 [![Build Status SemaphoreCI](https://traefik-oss.semaphoreci.com/badges/traefik/branches/master.svg?style=shields)](https://traefik-oss.semaphoreci.com/projects/traefik)
-[![Docs](https://img.shields.io/badge/docs-current-brightgreen.svg)](https://doc.traefik.io/traefik)
+[![Docs](https://img.shields.io/badge/docs-current-brightgreen.svg)](https://doc.traefik-x.io/traefik)
 [![Go Report Card](https://goreportcard.com/badge/traefik/traefik)](https://goreportcard.com/report/traefik/traefik)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/traefik/traefik/blob/master/LICENSE.md)
-[![Join the community support forum at https://community.traefik.io/](https://img.shields.io/badge/style-register-green.svg?style=social&label=Discourse)](https://community.traefik.io/)
+[![Join the community support forum at https://community.traefik-x.io/](https://img.shields.io/badge/style-register-green.svg?style=social&label=Discourse)](https://community.traefik-x.io/)
 [![Twitter](https://img.shields.io/twitter/follow/traefik.svg?style=social)](https://twitter.com/intent/follow?screen_name=traefik)
 
 Traefik (pronounced _traffic_) is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy.
@@ -35,7 +35,7 @@ Pointing Traefik at your orchestrator should be the _only_ configuration step yo
 
 ---
 
-:warning: Please be aware that the old configurations for Traefik v1.x are NOT compatible with the v2.x config as of now. If you're running v2, please ensure you are using a [v2 configuration](https://doc.traefik.io/traefik/).
+:warning: Please be aware that the old configurations for Traefik v1.x are NOT compatible with the v2.x config as of now. If you're running v2, please ensure you are using a [v2 configuration](https://doc.traefik-x.io/traefik/).
 
 ## Overview
 
@@ -70,14 +70,14 @@ _(But if you'd rather configure some of your routes manually, Traefik supports t
 
 ## Supported Backends
 
-- [Docker](https://doc.traefik.io/traefik/providers/docker/) / [Swarm mode](https://doc.traefik.io/traefik/providers/docker/)
-- [Kubernetes](https://doc.traefik.io/traefik/providers/kubernetes-crd/)
-- [ECS](https://doc.traefik.io/traefik/providers/ecs/)
-- [File](https://doc.traefik.io/traefik/providers/file/)
+- [Docker](https://doc.traefik-x.io/traefik/providers/docker/) / [Swarm mode](https://doc.traefik-x.io/traefik/providers/docker/)
+- [Kubernetes](https://doc.traefik-x.io/traefik/providers/kubernetes-crd/)
+- [ECS](https://doc.traefik-x.io/traefik/providers/ecs/)
+- [File](https://doc.traefik-x.io/traefik/providers/file/)
 
 ## Quickstart
 
-To get your hands on Traefik, you can use the [5-Minute Quickstart](https://doc.traefik.io/traefik/getting-started/quick-start/) in our documentation (you will need Docker).
+To get your hands on Traefik, you can use the [5-Minute Quickstart](https://doc.traefik-x.io/traefik/getting-started/quick-start/) in our documentation (you will need Docker).
 
 ## Web UI
 
@@ -87,17 +87,17 @@ You can access the simple HTML frontend of Traefik.
 
 ## Documentation
 
-You can find the complete documentation of Traefik v2 at [https://doc.traefik.io/traefik/](https://doc.traefik.io/traefik/).
+You can find the complete documentation of Traefik v2 at [https://doc.traefik-x.io/traefik/](https://doc.traefik-x.io/traefik/).
 
-A collection of contributions around Traefik can be found at [https://awesome.traefik.io](https://awesome.traefik.io).
+A collection of contributions around Traefik can be found at [https://awesome.traefik-x.io](https://awesome.traefik-x.io).
 
 ## Support
 
 To get community support, you can:
 
-- join the Traefik community forum: [![Join the chat at https://community.traefik.io/](https://img.shields.io/badge/style-register-green.svg?style=social&label=Discourse)](https://community.traefik.io/)
+- join the Traefik community forum: [![Join the chat at https://community.traefik-x.io/](https://img.shields.io/badge/style-register-green.svg?style=social&label=Discourse)](https://community.traefik-x.io/)
 
-If you need commercial support, please contact [Traefik.io](https://traefik.io) by mail: <mailto:support@traefik.io>.
+If you need commercial support, please contact [Traefik.io](https://traefik-x.io) by mail: <mailto:support@traefik-x.io>.
 
 ## Download
 
@@ -121,7 +121,7 @@ git clone https://github.com/traefik/traefik
 
 ## Introductory Videos
 
-You can find high level and deep dive videos on [videos.traefik.io](https://videos.traefik.io).
+You can find high level and deep dive videos on [videos.traefik-x.io](https://videos.traefik-x.io).
 
 ## Maintainers
 
@@ -148,8 +148,8 @@ We use [Semantic Versioning](https://semver.org/).
 
 ## Mailing Lists
 
-- General announcements, new releases: mail at news+subscribe@traefik.io or on [the online viewer](https://groups.google.com/a/traefik.io/forum/#!forum/news).
-- Security announcements: mail at security+subscribe@traefik.io or on [the online viewer](https://groups.google.com/a/traefik.io/forum/#!forum/security).
+- General announcements, new releases: mail at news+subscribe@traefik-x.io or on [the online viewer](https://groups.google.com/a/traefik-x.io/forum/#!forum/news).
+- Security announcements: mail at security+subscribe@traefik-x.io or on [the online viewer](https://groups.google.com/a/traefik-x.io/forum/#!forum/security).
 
 ## Credits
 

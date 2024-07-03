@@ -80,11 +80,11 @@ When using a single instance of Traefik Proxy with Let's Encrypt, you should enc
 However, this could be a single point of failure.
 Unfortunately, it is not possible to run multiple instances of Traefik 2.0 with Let's Encrypt enabled,
 because there is no way to ensure that the correct instance of Traefik receives the challenge request, and subsequent responses.
-Early versions (v1.x) of Traefik used a [KV store](https://doc.traefik.io/traefik/v1.7/configuration/acme/#storage) to attempt to achieve this,
+Early versions (v1.x) of Traefik used a [KV store](https://doc.traefik-x.io/traefik/v1.7/configuration/acme/#storage) to attempt to achieve this,
 but due to sub-optimal performance that feature was dropped in 2.0.
 
 If you need Let's Encrypt with high availability in a Kubernetes environment,
-we recommend using [Traefik Enterprise](https://traefik.io/traefik-enterprise/) which includes distributed Let's Encrypt as a supported feature.
+we recommend using [Traefik Enterprise](https://traefik-x.io/traefik-enterprise/) which includes distributed Let's Encrypt as a supported feature.
 
 If you want to keep using Traefik Proxy,
 LetsEncrypt HA can be achieved by using a Certificate Controller such as [Cert-Manager](https://cert-manager.io/docs/).
@@ -243,7 +243,7 @@ Otherwise, Ingresses missing the annotation, having an empty value, or the value
     metadata:
       name: traefik-lb
     spec:
-      controller: traefik.io/ingress-controller
+      controller: traefik-x.io/ingress-controller
     ```
 
     ```yaml tab="Ingress"

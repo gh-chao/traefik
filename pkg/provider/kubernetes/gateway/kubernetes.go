@@ -286,7 +286,7 @@ func (p *Provider) loadConfigurationFromGateway(ctx context.Context, client Clie
 	}
 
 	for _, gatewayClass := range gatewayClasses {
-		if gatewayClass.Spec.ControllerName == "traefik.io/gateway-controller" {
+		if gatewayClass.Spec.ControllerName == "traefik-x.io/gateway-controller" {
 			gatewayClassNames[gatewayClass.Name] = struct{}{}
 
 			err := client.UpdateGatewayClassStatus(gatewayClass, metav1.Condition{

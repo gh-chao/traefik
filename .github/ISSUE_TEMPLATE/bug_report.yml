@@ -7,7 +7,7 @@ body:
       label: Welcome!
       description: |
         The issue tracker is for reporting bugs and feature requests only.
-        For end-user related support questions, please use the [Traefik community forum](https://community.traefik.io/).
+        For end-user related support questions, please use the [Traefik community forum](https://community.traefik-x.io/).
 
         All new/updated issues are triaged regularly by the maintainers.
         All issues closed by a bot are subsequently double-checked by the maintainers.
@@ -17,7 +17,7 @@ body:
       options:
         - label: Yes, I've searched similar issues on [GitHub](https://github.com/traefik/traefik/issues) and didn't find any.
           required: true
-        - label: Yes, I've searched similar issues on the [Traefik community forum](https://community.traefik.io) and didn't find any.
+        - label: Yes, I've searched similar issues on the [Traefik community forum](https://community.traefik-x.io) and didn't find any.
           required: true
 
   - type: textarea

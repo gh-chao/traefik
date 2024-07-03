@@ -32,7 +32,7 @@ rules:
     verbs:
       - update
   - apiGroups:
-      - traefik.io
+      - traefik-x.io
     resources:
       - middlewares
       - middlewaretcps

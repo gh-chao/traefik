@@ -559,8 +559,8 @@ By default, the `defaultRuleSyntax` static option is `v3`, meaning that the defa
         ruleSyntax = v2
     ```
 
-    ```yaml tab="Kubernetes traefik.io/v1alpha1"
-    apiVersion: traefik.io/v1alpha1
+    ```yaml tab="Kubernetes traefik-x.io/v1alpha1"
+    apiVersion: traefik-x.io/v1alpha1
     kind: IngressRoute
     metadata:
       name: test.route
@@ -1272,8 +1272,8 @@ By default, the `defaultRuleSyntax` static option is `v3`, meaning that the defa
         ruleSyntax = v2
     ```
 
-    ```yaml tab="Kubernetes traefik.io/v1alpha1"
-    apiVersion: traefik.io/v1alpha1
+    ```yaml tab="Kubernetes traefik-x.io/v1alpha1"
+    apiVersion: traefik-x.io/v1alpha1
     kind: IngressRouteTCP
     metadata:
       name: test.route

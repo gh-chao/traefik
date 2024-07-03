@@ -591,7 +591,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -626,7 +626,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -668,7 +668,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -701,7 +701,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -741,7 +741,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -772,7 +772,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -803,7 +803,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -843,7 +843,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -878,7 +878,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -916,7 +916,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -952,7 +952,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -986,7 +986,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -1024,7 +1024,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -1058,7 +1058,7 @@ http:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransport
 metadata:
   name: mytransport
@@ -1737,7 +1737,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -1771,7 +1771,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -1811,7 +1811,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -1843,7 +1843,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -1875,7 +1875,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -1912,7 +1912,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -1956,7 +1956,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -1991,7 +1991,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -2033,7 +2033,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -2074,7 +2074,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport
@@ -2109,7 +2109,7 @@ tcp:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: ServersTransportTCP
 metadata:
   name: mytransport

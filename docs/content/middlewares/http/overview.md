@@ -27,7 +27,7 @@ whoami:
 ```yaml tab="Kubernetes IngressRoute"
 # As a Kubernetes Traefik IngressRoute
 ---
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: stripprefix
@@ -37,7 +37,7 @@ spec:
       - /stripit
 
 ---
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: ingressroute
@@ -127,6 +127,6 @@ http:
 
 ## Community Middlewares
 
-Please take a look at the community-contributed plugins in the [plugin catalog](https://plugins.traefik.io/plugins).
+Please take a look at the community-contributed plugins in the [plugin catalog](https://plugins.traefik-x.io/plugins).
 
 {!traefik-for-business-applications.md!}

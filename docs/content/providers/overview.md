@@ -82,7 +82,7 @@ For the list of the providers names, see the [supported providers](#supported-pr
     ```
 
     ```yaml tab="Kubernetes Ingress Route"
-    apiVersion: traefik.io/v1alpha1
+    apiVersion: traefik-x.io/v1alpha1
     kind: IngressRoute
     metadata:
       name: ingressroutestripprefix
@@ -104,7 +104,7 @@ For the list of the providers names, see the [supported providers](#supported-pr
     ```
 
     ```yaml tab="Kubernetes Ingress"
-    apiVersion: traefik.io/v1alpha1
+    apiVersion: traefik-x.io/v1alpha1
     kind: Middleware
     metadata:
       name: stripprefix
@@ -151,7 +151,7 @@ Below is the list of the currently supported providers in Traefik.
 !!! info "More Providers"
 
     The current version of Traefik does not yet support every provider that Traefik v2.11 did.
-    See the [previous version (v2.11)](https://doc.traefik.io/traefik/v2.11/) for more information.
+    See the [previous version (v2.11)](https://doc.traefik-x.io/traefik/v2.11/) for more information.
 
 ### Configuration Reload Frequency
 

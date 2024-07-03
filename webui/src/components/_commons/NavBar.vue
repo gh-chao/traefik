@@ -53,7 +53,7 @@
             />
             <q-btn
               type="a"
-              href="https://plugins.traefik.io"
+              href="https://plugins.traefik-x.io"
               target="_blank"
               flat
               no-caps
@@ -107,7 +107,7 @@
                   <q-item>
                     <q-btn
                       type="a"
-                      :href="`https://doc.traefik.io/traefik/${parsedVersion}`"
+                      :href="`https://doc.traefik-x.io/traefik/${parsedVersion}`"
                       target="_blank"
                       flat
                       color="accent"

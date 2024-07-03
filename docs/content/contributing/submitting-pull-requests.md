@@ -8,7 +8,7 @@ description: "Looking to contribute to Traefik Proxy? This guide will show you t
 This guide is for contributors who already have a pull request to submit.
 If you are looking for information on setting up your developer environment
 and creating code to contribute to Traefik Proxy or related projects,
-see the [development guide](https://docs.traefik.io/contributing/building-testing/).
+see the [development guide](https://docs.traefik-x.io/contributing/building-testing/).
 
 Looking for a way to contribute to Traefik Proxy?
 Check out this list of [Priority Issues](https://github.com/traefik/traefik/labels/contributor%2Fwanted),

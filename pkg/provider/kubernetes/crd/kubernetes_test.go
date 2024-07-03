@@ -7139,7 +7139,7 @@ func readResources(t *testing.T, paths []string) ([]runtime.Object, []runtime.Ob
 		objects := k8s.MustParseYaml(yamlContent)
 		for _, obj := range objects {
 			switch obj.GetObjectKind().GroupVersionKind().Group {
-			case "traefik.io":
+			case "traefik-x.io":
 				crdObjects = append(crdObjects, obj)
 			default:
 				k8sObjects = append(k8sObjects, obj)

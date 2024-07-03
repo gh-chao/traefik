@@ -101,7 +101,7 @@ subjects:
 
 !!! info "This section can be managed with the help of the [Traefik Helm chart](../install-traefik/#use-the-helm-chart)."
 
-The [ingress controller](https://traefik.io/glossary/kubernetes-ingress-and-ingress-controller-101/#what-is-a-kubernetes-ingress-controller)
+The [ingress controller](https://traefik-x.io/glossary/kubernetes-ingress-and-ingress-controller-101/#what-is-a-kubernetes-ingress-controller)
 is a software that runs in the same way as any other application on a cluster.  
 To start Traefik on the Kubernetes cluster,
 a [`Deployment`](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/deployment-v1/) resource must exist to describe how to configure

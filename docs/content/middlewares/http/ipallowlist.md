@@ -19,7 +19,7 @@ labels:
 ```
 
 ```yaml tab="Kubernetes"
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-ipallowlist
@@ -94,7 +94,7 @@ labels:
 
 ```yaml tab="Kubernetes"
 # Allowlisting Based on `X-Forwarded-For` with `depth=2`
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-ipallowlist
@@ -160,7 +160,7 @@ labels:
 
 ```yaml tab="Kubernetes"
 # Exclude from `X-Forwarded-For`
-apiVersion: traefik.io/v1alpha1
+apiVersion: traefik-x.io/v1alpha1
 kind: Middleware
 metadata:
   name: test-ipallowlist

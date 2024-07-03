@@ -1,7 +1,7 @@
 site_name: Traefik
 site_description: Traefik Documentation
-site_author: traefik.io
-site_url: https://doc.traefik.io/traefik
+site_author: traefik-x.io
+site_url: https://doc.traefik-x.io/traefik
 dev_addr: 0.0.0.0:8000
 
 repo_name: 'GitHub'

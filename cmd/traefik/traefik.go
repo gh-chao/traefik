@@ -57,7 +57,7 @@ func main() {
 	cmdTraefik := &cli.Command{
 		Name: "traefik",
 		Description: `Traefik is a modern HTTP reverse proxy and load balancer made to deploy microservices with ease.
-Complete documentation is available at https://traefik.io`,
+Complete documentation is available at https://traefik-x.io`,
 		Configuration: tConfig,
 		Resources:     loaders,
 		Run: func(_ []string) error {
@@ -599,13 +599,13 @@ func stats(staticConfiguration *static.Configuration) {
 		logger.Info().Msg(`Stats collection is enabled.`)
 		logger.Info().Msg(`Many thanks for contributing to Traefik's improvement by allowing us to receive anonymous information from your configuration.`)
 		logger.Info().Msg(`Help us improve Traefik by leaving this feature on :)`)
-		logger.Info().Msg(`More details on: https://doc.traefik.io/traefik/contributing/data-collection/`)
+		logger.Info().Msg(`More details on: https://doc.traefik-x.io/traefik/contributing/data-collection/`)
 		collect(staticConfiguration)
 	} else {
 		logger.Info().Msg(`
 Stats collection is disabled.
 Help us improve Traefik by turning this feature on :)
-More details on: https://doc.traefik.io/traefik/contributing/data-collection/
+More details on: https://doc.traefik-x.io/traefik/contributing/data-collection/
 `)
 	}
 }

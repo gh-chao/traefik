@@ -1,0 +1,14 @@
+---
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+resources:
+  - traefik-x.io_ingressroutes.yaml
+  - traefik-x.io_ingressroutetcps.yaml
+  - traefik-x.io_ingressrouteudps.yaml
+  - traefik-x.io_middlewares.yaml
+  - traefik-x.io_middlewaretcps.yaml
+  - traefik-x.io_serverstransports.yaml
+  - traefik-x.io_serverstransporttcps.yaml
+  - traefik-x.io_tlsoptions.yaml
+  - traefik-x.io_tlsstores.yaml
+  - traefik-x.io_traefikservices.yaml
