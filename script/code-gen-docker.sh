@@ -9,16 +9,20 @@ IMAGE_NAME="kubernetes-codegen:latest"
 CURRENT_DIR="$(pwd)"
 
 echo "Building codegen Docker image..."
+
+CTX_DIR=$(mktemp -d)
 docker build --build-arg KUBE_VERSION=v0.29.1 \
              --build-arg USER="${USER}" \
              --build-arg UID="$(id -u)" \
              --build-arg GID="$(id -g)" \
              -f "./script/codegen.Dockerfile" \
              -t "${IMAGE_NAME}" \
-             "."
+             "$CTX_DIR"
+rm -r "${CTX_DIR}"
 
 echo "Generating Traefik clientSet code and DeepCopy code ..."
 docker run --rm \
+           -v "${CURRENT_DIR}/devcache/code-gen:/go/pkg/mod" \
            -v "${CURRENT_DIR}:/go/src/${PROJECT_MODULE}" \
            -w "/go/src/${PROJECT_MODULE}" \
            -e "PROJECT_MODULE=${PROJECT_MODULE}" \
@@ -28,6 +32,7 @@ docker run --rm \
 
 echo "Generating the CRD definitions for the documentation ..."
 docker run --rm \
+           -v "${CURRENT_DIR}/devcache/code-gen:/go/pkg/mod" \
            -v "${CURRENT_DIR}:/go/src/${PROJECT_MODULE}" \
            -w "/go/src/${PROJECT_MODULE}" \
            "${IMAGE_NAME}" \
