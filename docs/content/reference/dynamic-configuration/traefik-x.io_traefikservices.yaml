@@ -163,6 +163,13 @@ spec:
                                     (i.e. HTTPS).
                                   type: boolean
                               type: object
+                            header:
+                              properties:
+                                maxAge:
+                                  type: integer
+                                name:
+                                  type: string
+                              type: object
                           type: object
                         strategy:
                           description: |-
@@ -261,6 +268,13 @@ spec:
                             description: Secure defines whether the cookie can only
                               be transmitted over an encrypted connection (i.e. HTTPS).
                             type: boolean
+                        type: object
+                      header:
+                        properties:
+                          maxAge:
+                            type: integer
+                          name:
+                            type: string
                         type: object
                     type: object
                   strategy:
@@ -378,6 +392,13 @@ spec:
                                     (i.e. HTTPS).
                                   type: boolean
                               type: object
+                            header:
+                              properties:
+                                maxAge:
+                                  type: integer
+                                name:
+                                  type: string
+                              type: object
                           type: object
                         strategy:
                           description: |-
@@ -423,6 +444,13 @@ spec:
                             description: Secure defines whether the cookie can only
                               be transmitted over an encrypted connection (i.e. HTTPS).
                             type: boolean
+                        type: object
+                      header:
+                        properties:
+                          maxAge:
+                            type: integer
+                          name:
+                            type: string
                         type: object
                     type: object
                 type: object
