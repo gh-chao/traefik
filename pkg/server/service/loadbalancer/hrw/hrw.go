@@ -182,6 +182,9 @@ func (b *Balancer) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	req.Header.Add("x-server", server.name)
+	w.Header().Add("x-server", server.name)
+
 	server.ServeHTTP(w, req)
 }
 
