@@ -268,6 +268,11 @@
           {{- if .Values.metrics.prometheus.manualRouting }}
           - "--metrics.prometheus.manualrouting=true"
           {{- end }}
+
+          {{- range $name, $value := .Values.metrics.prometheus.headerlabels }}
+          - "--metrics.prometheus.headerlabels.{{ $name }}={{ $value }}"
+          {{- end }}
+
           {{- end }}
           {{- with .Values.metrics.statsd }}
           - "--metrics.statsd=true"
@@ -702,6 +707,8 @@
           {{- end }}
          {{- end }}
         env:
+          - name: GROUP_CACHE_ENDPOINT_SELECTOR
+            value: {{ include "traefik.groupCacheEndpointSelector" . }}
           {{- if ($.Values.resources.limits).cpu }}
           - name: GOMAXPROCS
             valueFrom:

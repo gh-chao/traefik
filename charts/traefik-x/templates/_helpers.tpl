@@ -53,6 +53,11 @@ app.kubernetes.io/name: {{ template "traefik.name" . }}
 app.kubernetes.io/instance: {{ template "traefik.instance-name" . }}
 {{- end }}
 
+{{- define "traefik.groupCacheEndpointSelector" -}}
+app.kubernetes.io/name={{ template "traefik.name" . }},app.kubernetes.io/instance={{ template "traefik.instance-name" . }}
+{{- end }}
+
+
 {{/* Shared labels used in metada */}}
 {{- define "traefik.labels" -}}
 {{ include "traefik.labelselector" . }}

@@ -87,7 +87,10 @@ Complete documentation is available at https://traefik-x.io`,
 }
 
 func runCmd(staticConfiguration *static.Configuration) error {
+	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+
 	setupLogger(staticConfiguration)
+	setupGroupCache(ctx)
 
 	http.DefaultTransport.(*http.Transport).Proxy = http.ProxyFromEnvironment
 
@@ -117,8 +120,6 @@ func runCmd(staticConfiguration *static.Configuration) error {
 	if err != nil {
 		return err
 	}
-
-	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 
 	if staticConfiguration.Ping != nil {
 		staticConfiguration.Ping.WithContext(ctx)
