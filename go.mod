@@ -19,7 +19,7 @@ require (
 	github.com/docker/go-connections v0.5.0
 	github.com/fatih/structs v1.1.0
 	github.com/fsnotify/fsnotify v1.7.0
-	github.com/gh-chao/groupcache v0.1.0
+	github.com/gh-chao/groupcache v0.3.0
 	github.com/go-acme/lego/v4 v4.17.4
 	github.com/go-kit/kit v0.10.1-0.20200915143503-439c4d2ed3ea
 	github.com/golang/protobuf v1.5.4

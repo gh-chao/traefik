@@ -2,16 +2,25 @@ package hrw
 
 import (
 	"context"
+	"encoding/hex"
 	"errors"
+	"fmt"
+	"github.com/gh-chao/groupcache"
+	"github.com/rs/zerolog/log"
 	"github.com/traefik/traefik/v3/pkg/config/dynamic"
 	"hash/fnv"
 	"k8s.io/apimachinery/pkg/util/rand"
 	"math"
 	"net/http"
 	"sync"
-
-	"github.com/rs/zerolog/log"
+	"time"
 )
+
+const CacheSize = 1 << 34
+
+var cache = groupcache.NewGroupWithWorkspace(groupcache.DefaultWorkspace, "hrw-sticky", CacheSize, groupcache.GetterFunc(func(ctx context.Context, key string, dest groupcache.Sink) error {
+	return errors.New("not implemented")
+}))
 
 type namedHandler struct {
 	http.Handler
@@ -24,10 +33,15 @@ type namedHandler struct {
 // providing weighted stateless sticky session behavior with floating point weights and an O(n) pick time.
 // Client connects to the same server each time based on their IP source
 type Balancer struct {
+	serviceName string
+
 	wantsHealthCheck bool
 
 	mutex    sync.RWMutex
 	handlers []*namedHandler
+
+	handlerMap map[string]*namedHandler
+
 	// status is a record of which child services of the Balancer are healthy, keyed
 	// by name of child service. A service is initially added to the map when it is
 	// created via Add, and it is later removed or added to the map as needed,
@@ -41,11 +55,15 @@ type Balancer struct {
 }
 
 // New creates a new load balancer.
-func New(sticky *dynamic.Sticky, wantHealthCheck bool) *Balancer {
+func New(serviceName string, sticky *dynamic.Sticky, wantHealthCheck bool) *Balancer {
+	log.Debug().Msgf("New HRW balancer: %s", serviceName)
+
 	balancer := &Balancer{
+		serviceName:      serviceName,
 		sticky:           sticky,
 		status:           make(map[string]struct{}),
 		wantsHealthCheck: wantHealthCheck,
+		handlerMap:       make(map[string]*namedHandler),
 	}
 
 	return balancer
@@ -153,25 +171,105 @@ func (b *Balancer) nextServer(hashKey string) (*namedHandler, error) {
 	}
 	return handler, nil
 }
-func (b *Balancer) GetHashKey(req *http.Request) string {
-	if b.sticky.Header == nil {
+func (b *Balancer) GetStickyKey(req *http.Request) string {
+	if b.sticky == nil {
 		// return random string
-		return rand.String(10)
-	}
-	hashKey := req.Header.Get(b.sticky.Header.Name)
-	if hashKey == "" {
-		// return random string
-		return rand.String(10)
+		return ""
 	}
 
-	return hashKey
+	if b.sticky.Header == nil {
+		// return random string
+		return ""
+	}
+	key := req.Header.Get(b.sticky.Header.Name)
+	if key == "" {
+		// return random string
+		return ""
+	}
+
+	hasher := fnv.New64a()
+	_, _ = hasher.Write([]byte(fmt.Sprintf("%s:%s", b.serviceName, key)))
+
+	return hex.EncodeToString(hasher.Sum(nil))
+}
+
+func (b *Balancer) getStickyMaxAge() time.Duration {
+	if b.sticky == nil {
+		return time.Duration(0)
+	}
+
+	if b.sticky.Header == nil {
+		return time.Duration(0)
+	}
+
+	if b.sticky.Header.MaxAge <= 0 {
+		return time.Duration(0)
+	}
+
+	// 最大保持半小时
+	if b.sticky.Header.MaxAge > 1800 {
+		return 30 * time.Minute
+	}
+
+	return time.Duration(b.sticky.Header.MaxAge) * time.Second
+}
+
+func (b *Balancer) getHandlerWithCache(ctx context.Context, hashKey string) *namedHandler {
+	if hashKey == "" {
+		return nil
+	}
+
+	var serverName string
+	err := cache.Get(ctx, hashKey, groupcache.StringSink(&serverName))
+	if err != nil {
+		return nil
+	}
+
+	b.mutex.RLock()
+	handler, ok := b.handlerMap[serverName]
+	b.mutex.RUnlock()
+
+	// if handler is not found
+	if !ok || handler == nil {
+		return nil
+	}
+
+	b.mutex.RLock()
+	_, isHealthy := b.status[handler.name]
+	b.mutex.RUnlock()
+
+	// if handler not healthy
+	if !isHealthy {
+		return nil
+	}
+
+	log.Debug().Msgf("ServeHTTP() cache hit hashKey=%s serverName=%s", hashKey, serverName)
+
+	return handler
 }
 
 func (b *Balancer) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	// give ip fetched to b.nextServer
-	hashKey := b.GetHashKey(req)
-	log.Debug().Msgf("ServeHTTP() hashKey=%s", hashKey)
+	ctx := req.Context()
 
+	// give ip fetched to b.nextServer
+	stickyKey := b.GetStickyKey(req)
+
+	// check if cache hit
+	handler := b.getHandlerWithCache(ctx, stickyKey)
+	if handler != nil {
+		handler.ServeHTTP(w, req)
+		return
+	}
+
+	// if stickyKey is empty, we generate a random string
+	var hashKey string
+	if stickyKey == "" {
+		hashKey = rand.String(10)
+	} else {
+		hashKey = stickyKey
+	}
+
+	log.Debug().Msgf("ServeHTTP() stickyKey=%s", stickyKey)
 	server, err := b.nextServer(hashKey)
 	if err != nil {
 		if errors.Is(err, errNoAvailableServer) {
@@ -180,6 +278,18 @@ func (b *Balancer) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 		return
+	}
+
+	if stickyKey != "" {
+		// cache the server name
+		timeout, cancel := context.WithTimeout(ctx, time.Second/10)
+		defer cancel()
+		err = cache.Set(timeout, stickyKey, []byte(server.name), time.Now().Add(b.getStickyMaxAge()), true)
+		if err != nil {
+			log.Debug().Msgf("ServeHTTP() cache set error: %s", err.Error())
+		} else {
+			log.Debug().Msgf("ServeHTTP() cache set success: %s => %s", stickyKey, server.name)
+		}
 	}
 
 	req.Header.Add("x-server", server.name)
@@ -204,6 +314,7 @@ func (b *Balancer) Add(name string, handler http.Handler, weight *int) {
 
 	b.mutex.Lock()
 	b.Push(h)
+	b.handlerMap[name] = h
 	b.status[name] = struct{}{}
 	b.mutex.Unlock()
 }

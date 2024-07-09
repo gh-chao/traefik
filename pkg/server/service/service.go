@@ -262,7 +262,7 @@ func (m *Manager) getWRRServiceHandler(ctx context.Context, serviceName string, 
 
 func (m *Manager) getHRWServiceHandler(ctx context.Context, serviceName string, config *dynamic.HighestRandomWeight) (http.Handler, error) {
 	// TODO Handle accesslog and metrics with multiple service name
-	balancer := hrw.New(config.Sticky, config.HealthCheck != nil)
+	balancer := hrw.New(serviceName, config.Sticky, config.HealthCheck != nil)
 	for _, service := range shuffle(config.Services, m.rand) {
 		serviceHandler, err := m.BuildHTTP(ctx, service.Name)
 		if err != nil {
@@ -334,7 +334,7 @@ func (m *Manager) getLoadBalancerServiceHandler(ctx context.Context, serviceName
 	var lb LoadBalancerInterface
 	if info.LoadBalancer.Sticky.Header != nil {
 		// 基于 header 粘性，使用 HRW 算法
-		lb = hrw.New(service.Sticky, service.HealthCheck != nil)
+		lb = hrw.New(serviceName, service.Sticky, service.HealthCheck != nil)
 	} else {
 		// 默认使用 WRR 算法
 		lb = wrr.New(service.Sticky, service.HealthCheck != nil)

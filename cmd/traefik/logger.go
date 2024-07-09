@@ -39,6 +39,12 @@ func setupLogger(staticConfiguration *static.Configuration) {
 
 	// Global logrus replacement (related to lib like go-rancher-metadata, docker, etc.)
 	logrus.StandardLogger().Out = logs.NoLevel(log.Logger, zerolog.DebugLevel)
+	logrusLevel, err := logrus.ParseLevel(logLevel.String())
+	if err == nil {
+		logrus.SetLevel(logrusLevel)
+	} else {
+		logrus.SetLevel(logrus.DebugLevel)
+	}
 
 	// configure default standard log.
 	stdlog.SetFlags(stdlog.Lshortfile | stdlog.LstdFlags)
