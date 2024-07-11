@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/llm"
 	"hash/fnv"
 	"math/rand"
 	"net/http"
@@ -235,7 +236,7 @@ func (m *Manager) getWRRServiceHandler(ctx context.Context, serviceName string, 
 			return nil, err
 		}
 
-		balancer.Add(service.Name, serviceHandler, service.Weight)
+		balancer.Add(service.Name, serviceHandler, nil, service.Weight)
 
 		if config.HealthCheck == nil {
 			continue
@@ -269,7 +270,7 @@ func (m *Manager) getHRWServiceHandler(ctx context.Context, serviceName string, 
 			return nil, err
 		}
 
-		balancer.Add(service.Name, serviceHandler, service.Weight)
+		balancer.Add(service.Name, serviceHandler, nil, service.Weight)
 
 		if config.HealthCheck == nil {
 			continue
@@ -297,7 +298,27 @@ func (m *Manager) getHRWServiceHandler(ctx context.Context, serviceName string, 
 type LoadBalancerInterface interface {
 	http.Handler
 	healthcheck.StatusSetter
-	Add(name string, handler http.Handler, weight *int)
+	Add(name string, handler http.Handler, directHandler http.Handler, weight *int)
+}
+
+func (m *Manager) newLoadBalancer(serviceName string, service *dynamic.ServersLoadBalancer) LoadBalancerInterface {
+	strategy := strings.ToUpper(service.Strategy)
+
+	if strategy == "LLM" {
+		return llm.New(serviceName, service.HealthCheck != nil)
+	}
+
+	if strategy == "HASH" || strategy == "HRW" {
+		return llm.New(serviceName, service.HealthCheck != nil)
+	}
+
+	// 基于 header 粘性，使用 HRW 算法
+	if service.Sticky != nil && service.Sticky.Header != nil {
+		return hrw.New(serviceName, service.Sticky, service.HealthCheck != nil)
+	}
+
+	// 默认使用 WRR 算法
+	return wrr.New(service.Sticky, service.HealthCheck != nil)
 }
 
 func (m *Manager) getLoadBalancerServiceHandler(ctx context.Context, serviceName string, info *runtime.ServiceInfo) (http.Handler, error) {
@@ -331,14 +352,7 @@ func (m *Manager) getLoadBalancerServiceHandler(ctx context.Context, serviceName
 		return nil, err
 	}
 
-	var lb LoadBalancerInterface
-	if info.LoadBalancer.Sticky.Header != nil {
-		// 基于 header 粘性，使用 HRW 算法
-		lb = hrw.New(serviceName, service.Sticky, service.HealthCheck != nil)
-	} else {
-		// 默认使用 WRR 算法
-		lb = wrr.New(service.Sticky, service.HealthCheck != nil)
-	}
+	var lb = m.newLoadBalancer(serviceName, service)
 	healthCheckTargets := make(map[string]*url.URL)
 
 	for _, server := range shuffle(service.Servers, m.rand) {
@@ -363,7 +377,8 @@ func (m *Manager) getLoadBalancerServiceHandler(ctx context.Context, serviceName
 			roundTripper = newObservabilityRoundTripper(m.observabilityMgr.SemConvMetricsRegistry(), roundTripper)
 		}
 
-		proxy := buildSingleHostProxy(target, passHostHeader, time.Duration(flushInterval), roundTripper, m.bufferPool)
+		directProxy := buildSingleHostProxy(target, passHostHeader, time.Duration(flushInterval), roundTripper, m.bufferPool)
+		proxy := directProxy
 
 		// Prevents from enabling observability for internal resources.
 
@@ -389,7 +404,7 @@ func (m *Manager) getLoadBalancerServiceHandler(ctx context.Context, serviceName
 			proxy = observability.NewService(ctx, serviceName, proxy)
 		}
 
-		lb.Add(proxyName, proxy, server.Weight)
+		lb.Add(proxyName, proxy, directProxy, server.Weight)
 
 		// servers are considered UP by default.
 		info.UpdateServerStatus(target.String(), runtime.StatusUp)

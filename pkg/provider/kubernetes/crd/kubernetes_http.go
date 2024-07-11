@@ -305,6 +305,7 @@ func (c configBuilder) buildServersLB(namespace string, svc traefikv1alpha1.Load
 	lb := &dynamic.ServersLoadBalancer{}
 	lb.SetDefaults()
 	lb.Servers = servers
+	lb.Strategy = svc.Strategy
 
 	conf := svc
 	lb.PassHostHeader = conf.PassHostHeader
@@ -350,14 +351,6 @@ func (c *configBuilder) makeServersTransportKey(parentNamespace string, serversT
 }
 
 func (c configBuilder) loadServers(parentNamespace string, svc traefikv1alpha1.LoadBalancerSpec) ([]dynamic.Server, error) {
-	strategy := svc.Strategy
-	if strategy == "" {
-		strategy = roundRobinStrategy
-	}
-	if strategy != roundRobinStrategy {
-		return nil, fmt.Errorf("load balancing strategy %s is not supported", strategy)
-	}
-
 	namespace := namespaceOrFallback(svc, parentNamespace)
 
 	if !isNamespaceAllowed(c.allowCrossNamespace, parentNamespace, namespace) {

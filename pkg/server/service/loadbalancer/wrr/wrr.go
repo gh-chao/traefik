@@ -250,7 +250,7 @@ func (b *Balancer) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 // Add adds a handler.
 // A handler with a non-positive weight is ignored.
-func (b *Balancer) Add(name string, handler http.Handler, weight *int) {
+func (b *Balancer) Add(name string, handler http.Handler, directHandler http.Handler, weight *int) {
 	w := 1
 	if weight != nil {
 		w = *weight

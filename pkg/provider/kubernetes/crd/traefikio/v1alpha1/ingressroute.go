@@ -97,6 +97,7 @@ type LoadBalancerSpec struct {
 	Kind string `json:"kind,omitempty"`
 	// Namespace defines the namespace of the referenced Kubernetes Service or TraefikService.
 	Namespace string `json:"namespace,omitempty"`
+
 	// Sticky defines the sticky sessions configuration.
 	// More info: https://doc.traefik-x.io/traefik/v3.0/routing/services/#sticky-sessions
 	Sticky *dynamic.Sticky `json:"sticky,omitempty"`
