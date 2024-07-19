@@ -301,15 +301,15 @@ type LoadBalancerInterface interface {
 	Add(name string, handler http.Handler, directHandler http.Handler, weight *int)
 }
 
-func (m *Manager) newLoadBalancer(serviceName string, service *dynamic.ServersLoadBalancer) LoadBalancerInterface {
+func (m *Manager) newLoadBalancer(ctx context.Context, serviceName string, service *dynamic.ServersLoadBalancer) LoadBalancerInterface {
 	strategy := strings.ToUpper(service.Strategy)
 
 	if strategy == "LLM" {
-		return llm.New(serviceName, service.HealthCheck != nil)
+		return llm.New(ctx, serviceName, service.HealthCheck != nil)
 	}
 
 	if strategy == "HASH" || strategy == "HRW" {
-		return llm.New(serviceName, service.HealthCheck != nil)
+		return hrw.New(serviceName, service.Sticky, service.HealthCheck != nil)
 	}
 
 	// 基于 header 粘性，使用 HRW 算法
@@ -352,7 +352,7 @@ func (m *Manager) getLoadBalancerServiceHandler(ctx context.Context, serviceName
 		return nil, err
 	}
 
-	var lb = m.newLoadBalancer(serviceName, service)
+	var lb = m.newLoadBalancer(ctx, serviceName, service)
 	healthCheckTargets := make(map[string]*url.URL)
 
 	for _, server := range shuffle(service.Servers, m.rand) {

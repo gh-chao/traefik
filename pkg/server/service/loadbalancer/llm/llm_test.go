@@ -35,3 +35,55 @@ func TestPrometheusMetricsParse(t *testing.T) {
 
 	})
 }
+
+func Test_getScore(t *testing.T) {
+	type args struct {
+		handler *namedHandler
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{
+			name: "Test_getScore_1",
+			args: args{
+				handler: &namedHandler{
+					requestWaiting:           1,
+					requestRunning:           10,
+					kvCacheUsagePercent:      0.9,
+					windowPeriodRequestCount: 5,
+				},
+			},
+		},
+		{
+			name: "Test_getScore_2",
+			args: args{
+				handler: &namedHandler{
+					requestWaiting:           0,
+					requestRunning:           10,
+					kvCacheUsagePercent:      0.5,
+					windowPeriodRequestCount: 10,
+				},
+			},
+		},
+		{
+			name: "Test_getScore_3",
+			args: args{
+				handler: &namedHandler{
+					requestWaiting:           0,
+					requestRunning:           10,
+					kvCacheUsagePercent:      0.5,
+					windowPeriodRequestCount: 12,
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getScore(tt.args.handler); got != tt.want {
+				t.Errorf("getScore() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
