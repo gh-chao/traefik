@@ -59,7 +59,7 @@ generate:
 #? binary: Build the binary
 binary: generate-webui dist
 	@echo SHA: $(VERSION) $(CODENAME) $(DATE)
-	CGO_ENABLED=0 GOGC=off GOOS=${GOOS} GOARCH=${GOARCH} go build ${FLAGS[*]} -ldflags "-s -w \
+	CGO_ENABLED=0 GOGC=off GOOS=${GOOS} GOARCH=${GOARCH} go build ${FLAGS[*]} -trimpath -ldflags "-s -w \
     -X github.com/traefik/traefik/v3/pkg/version.Version=$(VERSION) \
     -X github.com/traefik/traefik/v3/pkg/version.Codename=$(CODENAME) \
     -X github.com/traefik/traefik/v3/pkg/version.BuildDate=$(DATE)" \
@@ -152,14 +152,14 @@ multi-arch-image-%: binary-linux-amd64 binary-linux-arm64
 .PHONY: build-image
 #? build-image: Clean up static directory and build a Docker Traefik image
 build-image: export DOCKER_BUILDX_ARGS := --load
-build-image: export DOCKER_BUILD_PLATFORMS := linux/$(GOARCH)
+build-image: export DOCKER_BUILD_PLATFORMS := linux/amd64
 build-image: clean-webui
 	@$(MAKE) multi-arch-image-latest
 
 .PHONY: build-image-dirty
 #? build-image-dirty: Build a Docker Traefik image without re-building the webui when it's already built
 build-image-dirty: export DOCKER_BUILDX_ARGS := --load
-build-image-dirty: export DOCKER_BUILD_PLATFORMS := linux/$(GOARCH)
+build-image-dirty: export DOCKER_BUILD_PLATFORMS := linux/amd64
 build-image-dirty:
 	@$(MAKE) multi-arch-image-latest
 
