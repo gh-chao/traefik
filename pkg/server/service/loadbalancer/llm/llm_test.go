@@ -78,12 +78,97 @@ func Test_getScore(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "Test_getScore_4",
+			args: args{
+				handler: &namedHandler{
+					requestWaiting:           454.000000,
+					requestRunning:           253.000000,
+					kvCacheUsagePercent:      0.631876,
+					windowPeriodRequestCount: 12,
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := getScore(tt.args.handler); got != tt.want {
 				t.Errorf("getScore() = %v, want %v", got, tt.want)
 			}
+		})
+	}
+}
+
+func Test_getBestNode(t *testing.T) {
+	type args struct {
+		handlers []*namedHandler
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    *namedHandler
+		wantErr bool
+	}{
+		{
+			name: "Test_getBestNode_1",
+			args: args{
+				handlers: []*namedHandler{
+					{
+						name:                     "1",
+						weight:                   0,
+						requestWaiting:           0,
+						requestRunning:           0,
+						kvCacheUsagePercent:      0,
+						windowPeriodRequestCount: 0,
+						statusError:              nil,
+					},
+					{
+						name:                     "2",
+						weight:                   0,
+						requestWaiting:           0,
+						requestRunning:           0,
+						kvCacheUsagePercent:      0,
+						windowPeriodRequestCount: 0,
+						statusError:              nil,
+					},
+					{
+						name:                     "3",
+						weight:                   0,
+						requestWaiting:           0,
+						requestRunning:           0,
+						kvCacheUsagePercent:      0,
+						windowPeriodRequestCount: 0,
+						statusError:              nil,
+					},
+					{
+						name:                     "4",
+						weight:                   0,
+						statusError:              nil,
+						requestWaiting:           454.000000,
+						requestRunning:           253.000000,
+						kvCacheUsagePercent:      0.631876,
+						windowPeriodRequestCount: 12,
+					},
+				},
+			},
+			want:    nil,
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			results := map[string]int{}
+			for i := 0; i < 100; i++ {
+				h, _ := getBestNode(tt.args.handlers)
+				t.Log(h.name)
+				t.Log(h.windowPeriodRequestCount)
+				if _, ok := results[h.name]; ok {
+					results[h.name]++
+				} else {
+					results[h.name] = 1
+				}
+			}
+			t.Log(results)
 		})
 	}
 }

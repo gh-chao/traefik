@@ -198,27 +198,24 @@ func getScore(handler *namedHandler) float64 {
 	return score + remainingRequests*10 + (handler.windowPeriodRequestCount-remainingRequests)*100
 }
 
-func (b *Balancer) nextServer() (*namedHandler, error) {
-	b.mutex.Lock()
-	defer b.mutex.Unlock()
-
-	if len(b.handlers) == 0 || len(b.status) == 0 {
-		log.Debug().Msg("nextServer() len = 0")
+func getBestNode(handlers []*namedHandler) (*namedHandler, error) {
+	if len(handlers) == 0 {
 		return nil, errNoAvailableServer
 	}
+
 	// 计算方式
 	// 挑选 RequestWaiting 最少的节点
 	// 如果 RequestWaiting 相同，挑选 RequestRunning 最少的节点
 	buckets := make(map[float64][]*namedHandler)
-	var bestScore float64
-	for _, handler := range b.handlers {
+	var bestScore = math.MaxFloat64
+	for _, handler := range handlers {
 		score := getScore(handler)
-		if bestScore == 0 || score < bestScore {
+		if _, ok := buckets[score]; !ok {
+			buckets[score] = make([]*namedHandler, 0)
+		}
+		buckets[score] = append(buckets[score], handler)
+		if score < bestScore {
 			bestScore = score
-			if _, ok := buckets[score]; !ok {
-				buckets[bestScore] = make([]*namedHandler, 0)
-			}
-			buckets[bestScore] = append(buckets[score], handler)
 		}
 	}
 	// 随机选择一个节点
@@ -234,9 +231,18 @@ func (b *Balancer) nextServer() (*namedHandler, error) {
 
 	bestNode.windowPeriodRequestCount++
 
-	log.Debug().Msgf("Service selected by : %s", bestNode.name)
-
 	return bestNode, nil
+}
+
+func (b *Balancer) nextServer() (*namedHandler, error) {
+	b.mutex.Lock()
+	defer b.mutex.Unlock()
+
+	if len(b.status) == 0 {
+		return nil, errNoAvailableServer
+	}
+
+	return getBestNode(b.handlers)
 }
 
 func (b *Balancer) updateNodeStatus(ctx context.Context) {
