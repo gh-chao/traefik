@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -26,6 +27,15 @@ type namedHandler struct {
 	kvCacheUsagePercent      float64
 	windowPeriodRequestCount float64
 	statusError              error
+
+	connections atomic.Int64
+}
+
+func (n *namedHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+	n.connections.Add(1)
+	defer n.connections.Add(-1)
+
+	n.handler.ServeHTTP(writer, request)
 }
 
 type Balancer struct {
@@ -130,7 +140,7 @@ func (b *Balancer) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	req.Header.Add("x-server", server.name)
 	w.Header().Add("x-server", server.name)
 
-	server.handler.ServeHTTP(w, req)
+	server.ServeHTTP(w, req)
 }
 
 // Add adds a handler.
@@ -164,38 +174,56 @@ func (b *Balancer) Push(x interface{}) {
 
 var errNoAvailableServer = errors.New("no available server")
 
+const requestWaitingWeight = 10
+const requestRunningWeight = 10
+const kvCacheUsagePercentWeight = 100
+const connectionsWeight = 20
+
 func getScore(handler *namedHandler) float64 {
-	score := handler.requestWaiting*100 + handler.requestRunning*10 + handler.kvCacheUsagePercent
+	var score float64 = 0
 
-	// 已有排队, 100分
+	// waiting 分数
+	score += handler.requestWaiting * requestWaitingWeight
+
+	// running 分数
+	score += handler.requestRunning * requestRunningWeight
+
+	// kvCache 分数
+	score += handler.kvCacheUsagePercent * kvCacheUsagePercentWeight
+
+	// 窗口期内的请求分数
+	score += getWindowPeriodRequestScore(handler)
+
+	// 连接数
+	score += float64(handler.connections.Load()) * connectionsWeight
+
+	return score
+}
+
+// 计算窗口期内的请求分数
+func getWindowPeriodRequestScore(handler *namedHandler) float64 {
+	// 已有排队
 	if handler.requestWaiting > 0 {
-		log.Debug().Msgf("Service %s has %f requests waiting", handler.name, handler.requestWaiting)
-		return score + handler.windowPeriodRequestCount*100
+		return handler.windowPeriodRequestCount * requestWaitingWeight
 	}
 
-	// 当前没有请求，10分
+	// 当前没有请求
 	if handler.requestRunning == 0 || handler.kvCacheUsagePercent == 0 {
-		log.Debug().Msgf("Service %s has no requests running", handler.name)
-		return score + handler.windowPeriodRequestCount*10
+		return handler.windowPeriodRequestCount * requestRunningWeight
 	}
 
-	// 预估每个请求的kvCache使用量
+	// 计算每个请求的平均 kvCache 使用量
 	kvCacheUsagePerRequest := handler.kvCacheUsagePercent / handler.requestRunning
 	// 预估当前kvCache余量还能调度多少请求
 	remainingRequests := math.Floor((1 / kvCacheUsagePerRequest) - handler.requestRunning)
 
-	log.Debug().Msgf("Service %s has %f remaining requests", handler.name, remainingRequests)
-
-	// 如果kvCache余量足够，10分
+	// 如果 kvCache 余量足够，10分
 	if handler.windowPeriodRequestCount <= remainingRequests {
-		log.Debug().Msgf("Service %s has enough kvCache for %f requests", handler.name, handler.windowPeriodRequestCount)
-		return score + handler.windowPeriodRequestCount*10
+		return handler.windowPeriodRequestCount * requestRunningWeight
 	}
 
 	// 如果kvCache余量不够，分开计算
-
-	log.Debug().Msgf("Service %s has not enough kvCache for %f requests", handler.name, handler.windowPeriodRequestCount)
-	return score + remainingRequests*10 + (handler.windowPeriodRequestCount-remainingRequests)*100
+	return remainingRequests*requestRunningWeight + (handler.windowPeriodRequestCount-remainingRequests)*requestWaitingWeight
 }
 
 func getBestNode(handlers []*namedHandler) (*namedHandler, error) {
