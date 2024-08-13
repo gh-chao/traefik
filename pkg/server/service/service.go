@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
+	"github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/least_conn"
 	"github.com/traefik/traefik/v3/pkg/server/service/loadbalancer/llm"
 	"hash/fnv"
 	"math/rand"
@@ -303,6 +304,10 @@ type LoadBalancerInterface interface {
 
 func (m *Manager) newLoadBalancer(ctx context.Context, serviceName string, service *dynamic.ServersLoadBalancer) LoadBalancerInterface {
 	strategy := strings.ToUpper(service.Strategy)
+
+	if strategy == "LEAST_CONN" {
+		return least_conn.New(ctx, serviceName, service.HealthCheck != nil)
+	}
 
 	if strategy == "LLM" {
 		return llm.New(ctx, serviceName, service.HealthCheck != nil)
